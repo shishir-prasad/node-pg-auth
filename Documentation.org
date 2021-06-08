@@ -1,0 +1,37 @@
+#+TITLE: API Documentation
+
+* Tech stack
+The following tech stack is being used in this application
+Backend - Expressjs on top of nodejs
+database - PostgreSQL
+
+* API
+** Authentication
+*** Registration
+#+begin_src restclient
+POST http://localhost:5000/auth/register
+Content-Type: application/json
+{
+"name": "Shishir",
+"password":"aoeu",
+"email": "saohishir@gmail.com"
+}
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "message": "Successfully Registered"
+}
+// POST http://localhost:5000/auth/register
+// HTTP/1.1 200 OK
+// X-Powered-By: Express
+// Access-Control-Allow-Origin: *
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 37
+// ETag: W/"25-0ChyeEHVCfcpiQoRDmwewzNFtNM"
+// Date: Tue, 08 Jun 2021 09:24:58 GMT
+// Connection: keep-alive
+// Keep-Alive: timeout=5
+// Request duration: 0.008798s
+#+END_SRC

@@ -38,32 +38,30 @@ passport.use(
   'login',
   new LocalStrategy(
     {
+      usernameField: 'email',
       passwordField: 'password',
       session: false,
     },
     async (username, password, done) => {
       try {
-        const savedUser = await User.findOne({
-          email: username,
-        }).collation({ locale: 'en', strength: 2 });
+        const savedUser = await db.oneOrNone('SELECT * FROM users WHERE user_email = $1', [
+          username,
+        ]);
+
         if (!savedUser) {
           return done(null, false, {
             message: 'email or password not valid',
           });
         }
-        const match = await savedUser.isValidPassword(password);
-        if (!match) {
-          throw createError(400, 'email or password not valid');
+        if (savedUser.user_password === password) {
+          const newUser = {
+            id: savedUser.id,
+            name: savedUser.firstName,
+            email: username,
+          };
+          return done(null, newUser);
         }
-        const newUser = {
-          id: savedUser.id,
-          role: savedUser.role,
-          name: savedUser.firstName,
-          isActive: savedUser.isActive,
-          appliedPosts: savedUser.appliedPosts,
-          isRegistrationComplete: savedUser.isRegistrationComplete,
-        };
-        return done(null, newUser);
+        throw createError(400, 'email or password not valid');
       } catch (error) {
         done(error);
       }

@@ -1,6 +1,7 @@
 const passport = require('passport');
-const pool = require('../db');
+const db = require('../db');
 const createErrors = require('http-errors');
+const { signAccessToken, verifyAccessToken } = require('../helpers/jwt_helper');
 
 module.exports = {
   registerApiPost: (req, res, next) => {
@@ -55,6 +56,29 @@ module.exports = {
         //     next(error);
         // });
         return res.status(200).json({ message: 'Successfully Registered' });
+      } catch (error) {
+        console.log(error);
+        next(error);
+      }
+    })(req, res, next);
+  },
+  loginUserApiPost: (req, res, next) => {
+    passport.authenticate('login', async (error, user, info) => {
+      try {
+        if (info !== undefined) {
+          if (info.message === 'invalid email') {
+            throw createErrors(400, info.message);
+          } else {
+            throw createErrors(403, info.message);
+          }
+        }
+        if (!user) {
+          console.log('error occured in user' + ' login or passing the user' + ' data back');
+          throw error;
+        } else {
+          const accessToken = await signAccessToken(user);
+          return res.status(200).json({ accessToken, user });
+        }
       } catch (error) {
         console.log(error);
         next(error);

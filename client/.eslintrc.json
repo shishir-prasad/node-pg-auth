@@ -4,14 +4,8 @@
     "es2021": true,
     "node": true
   },
-  "parser": "babel-eslint",
-  "extends": [
-    "plugin:react/recommended",
-    "airbnb",
-    "airbnb/hooks",
-    "prettier",
-    "prettier/react"
-  ],
+  "parser": "react-scripts/node_modules/babel-eslint",
+  "extends": ["plugin:react/recommended", "airbnb", "airbnb/hooks", "prettier", "prettier/react"],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"

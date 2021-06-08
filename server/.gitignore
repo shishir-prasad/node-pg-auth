@@ -1,0 +1,20 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+coverage
+dist
+node_modules
+package-lock.json
+*.log
+.*
+!*/*.babelrc.js
+!.editorconfig
+!.eslintignore
+!.eslintrc
+!.eslintrc.json
+!.gitignore
+!.gitlab-ci.yml
+!.npmignore
+!.storybook
+!.npmrc
+!.prettierignore
+!.prettierrc

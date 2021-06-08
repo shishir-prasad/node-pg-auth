@@ -2,16 +2,18 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const createError = require('http-errors');
-
+const authRoutes = require('./routes/authRoutes');
 require('./config/passport');
+require('dotenv').config();
 
-//middlewares
+// middlewares
+
 app.use(express.json());
 app.use(cors());
 
-//routes
+// routes
 
-app.use('/auth', require('./routes/authRoutes'));
+app.use('/auth', authRoutes);
 app.get('/', (req, res) => {
   res.send('Test Document');
 });
@@ -28,5 +30,8 @@ app.use((err, req, res, next) => {
   });
 });
 app.listen(5000, () => {
+  /* eslint no-console: "error" */
+
+  // custom console
   console.log('App is running in port 5000');
 });

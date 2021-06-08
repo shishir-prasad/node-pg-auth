@@ -12,6 +12,7 @@
     "http-errors": "^1.8.0",
     "jsonwebtoken": "^8.5.1",
     "passport": "^0.4.1",
+    "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
     "pg-promise": "^10.10.2"
   },
